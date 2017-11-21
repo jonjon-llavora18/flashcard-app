@@ -1,3 +1,5 @@
+import React from 'react';
+import ReactDOM from 'react-dom';
 import {createStore, combineReducers} from 'redux';
 import * as c from './constants';
 
@@ -20,19 +22,15 @@ const store = createStore(combineReducers({
   cards
 }));
 
-store.subscribe(() => {
-  console.log(store.getState());
-});
+const App = ({children}) => {
+  return (
+    <div className="app">
+      {children}
+    </div>
+  )
+}
 
-store.dispatch({
-  type: c.ADD_CARD,
-  data: {
-    front: 'front',
-    back: 'back'
-  }
-});
-
-store.dispatch({
-  type: c.ADD_CARD,
-  data: {}
-});
+ReactDOM.render(
+  <App>Hello <strong>React</strong></App>,
+  document.getElementById('root')
+);
