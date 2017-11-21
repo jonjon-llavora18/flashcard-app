@@ -10,6 +10,7 @@ import * as reducers from './reducers';
 
 import App from './components/App';
 import Sidebar from './components/Sidebar';
+import VisibleCards from './components/VisibleCards';
 
 reducers.routing = routerReducer;
 
@@ -22,7 +23,9 @@ function run() {
   ReactDOM.render(
     <Provider store={store}>
       <Router history={history}>
-        <Route path="/" component={App}></Route>
+        <Route path="/" component={App}>
+          <Route path="/deck/:deckId" component={VisibleCards} />
+        </Route>
       </Router>
     </Provider>,
     document.getElementById('root')
