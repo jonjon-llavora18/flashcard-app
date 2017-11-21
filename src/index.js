@@ -3,6 +3,10 @@ import ReactDOM from 'react-dom';
 import {createStore, combineReducers} from 'redux';
 import * as c from './constants';
 
+const addDeck = name => ({type: c.ADD_DECK, data: name});
+const showAddDeck = () => ({type: c.SHOW_ADD_DECK});
+const hideAddDeck = () => ({type: c.HIDE_ADD_DECK});
+
 const cards = (state=[], action) => {
   switch(action.type) {
     case c.ADD_CARD:
@@ -18,8 +22,29 @@ const cards = (state=[], action) => {
   }
 }
 
+const decks = (state=[], action) => {
+  switch(action.type) {
+    case c.ADD_DECK:
+      let newDeck = {name: action.data, id: +new Date()}
+      return state.concat([newDeck]);
+
+    default:
+      return state;
+  }
+}
+
+const addingDeck = (state=false, action) => {
+  switch(action.type) {
+    case c.SHOW_ADD_DECK: return true;
+    case c.HIDE_ADD_DECK: return false;
+    default: return state;
+  }
+}
+
 const store = createStore(combineReducers({
-  cards
+  cards,
+  decks,
+  addingDeck
 }));
 
 const App = ({children}) => {
@@ -46,11 +71,21 @@ class Sidebar extends Component {
   }
 }
 
-ReactDOM.render(
-  <App>
-    <Sidebar
-      decks={[{name: 'deck 1'}, {name: 'deck 2'}, {name: 'deck 3'}]}
-      addingDeck={true} />
-  </App>,
-  document.getElementById('root')
-);
+function run() {
+  const state = store.getState();
+
+  ReactDOM.render(
+    <App>
+      <Sidebar
+        decks={state.decks}
+        addingDeck={state.addingDeck}
+        addDeck={name => store.dispatch(addDeck(name))}
+        showAddDeck={() => store.dispatch(showAddDeck())}
+        hideAddDeck={() => store.dispatch(hideAddDeck())} />
+    </App>,
+    document.getElementById('root')
+  );
+}
+
+run();
+store.subscribe(run);
