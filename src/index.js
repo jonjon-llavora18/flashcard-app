@@ -1,7 +1,6 @@
-import React, {Component} from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
 import {createStore, combineReducers} from 'redux';
-import * as c from './constants';
 
 import {addDeck, showAddDeck, hideAddDeck} from './actions';
 import * as reducers from './reducers';
