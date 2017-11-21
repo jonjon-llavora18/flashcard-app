@@ -1,5 +1,14 @@
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
+import {connect} from 'react-redux';
+import {addDeck, showAddDeck, hideAddDeck} from '../actions';
+
+const mapState = ({decks, addingDeck}) => ({decks, addingDeck});
+const mapDispatch = dispatch => ({
+  addDeck: name => dispatch(addDeck(name)),
+  showAddDeck: () => dispatch(showAddDeck()),
+  hideAddDeck: () => dispatch(hideAddDeck())
+});
 
 class Sidebar extends Component {
   componentDidUpdate(prevProps, prevState) {
@@ -33,4 +42,4 @@ class Sidebar extends Component {
   }
 }
 
-export default Sidebar;
+export default connect(mapState, mapDispatch)(Sidebar);

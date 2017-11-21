@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {createStore, combineReducers} from 'redux';
+import {Provider} from 'react-redux';
 
 import {addDeck, showAddDeck, hideAddDeck} from './actions';
 import * as reducers from './reducers';
@@ -14,14 +15,11 @@ function run() {
   const state = store.getState();
 
   ReactDOM.render(
-    <App>
-      <Sidebar
-        decks={state.decks}
-        addingDeck={state.addingDeck}
-        addDeck={name => store.dispatch(addDeck(name))}
-        showAddDeck={() => store.dispatch(showAddDeck())}
-        hideAddDeck={() => store.dispatch(hideAddDeck())} />
-    </App>,
+    <Provider store={store}>
+      <App>
+        <Sidebar />
+      </App>
+    </Provider>,
     document.getElementById('root')
   );
 }
