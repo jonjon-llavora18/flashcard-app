@@ -1,7 +1,7 @@
-import {createStore} from 'redux';
+import {createStore, combineReducers} from 'redux';
 import * as c from './constants';
 
-const store = createStore((state=[], action) => {
+const cards = (state=[], action) => {
 	switch(action.type) {
 		case c.ADD_CARD:
 			let newCard = Object.assign({}, action.data, {
@@ -9,14 +9,16 @@ const store = createStore((state=[], action) => {
 				id: +new Date()
 			});
 
-			return Object.assign({}, state, {
-				cards: state.cards ? state.cards.concat([newCard]) : [newCard]
-			});
+			return state.concat([newCard]);
 
 		default:
-			return state || {cards: []}
+			return state;
 	}
-});
+}
+
+const store = createStore(combineReducers({
+	cards
+}));
 
 store.subscribe(() => {
 	console.log(store.getState());
