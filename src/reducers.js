@@ -1,14 +1,13 @@
+import {Map, List} from 'immutable';
 import * as c from './constants';
 
 export const cards = (state=[], action) => {
   switch(action.type) {
     case c.ADD_CARD:
-      let newCard = Object.assign({}, action.data, {
-        score: 1,
-        id: +new Date()
-      });
-
-      return state.concat([newCard]);
+      const newCard  = Map({score: 1, id: +new Date()})
+                          .merge(Map(action.data)).toJS();
+      const newState = List(state).push(newCard).toJS();
+      return newState === state ? state : newState;
 
     default:
       return state;
@@ -18,8 +17,9 @@ export const cards = (state=[], action) => {
 export const decks = (state=[], action) => {
   switch(action.type) {
     case c.ADD_DECK:
-      let newDeck = {name: action.data, id: +new Date()}
-      return state.concat([newDeck]);
+      const newDeck = Map({name: action.data, id: +new Date()}).toJS();
+      const newState = List(state).push(newDeck).toJS();
+      return newState === state ? state : newState;
 
     default:
       return state;
