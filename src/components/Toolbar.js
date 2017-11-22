@@ -9,6 +9,7 @@ const mapDispatch = dispatch => ({
 
 const Toolbar = ({showAddDeck, deckId}) => {
 	const deckTools = deckId ? (<div>
+			<Link className="btn" to="/">Home</Link>
 			<Link className="btn" to={`/deck/${deckId}/new`}>+ New Card</Link>
 			<Link className="btn" to={`/deck/${deckId}/study`}>Study Deck</Link>
 		</div>) : null;

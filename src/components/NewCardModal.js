@@ -3,7 +3,7 @@ import CardModal from './CardModal';
 import {addCard} from '../actions';
 
 const mapState = (props, {params: {deckId}}) => ({
-  card: {deckId}
+  card: {deckId: parseInt(deckId, 10)}
 });
 
 const mapDispatch = dispatch => ({
