@@ -1,51 +1,46 @@
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import {Link, browserHistory} from 'react-router';
+import {Map} from 'immutable';
 
 class CardModal extends Component {
-	componentDidUpdate(prevProps, prevState) {
-		const el = ReactDOM.findDOMNode(this.refs.front);
-		if(el) el.focus();
-	}
+  componentDidUpdate(prevProps, prevState) {
+    ReactDOM.findDOMNode(this.refs.front).focus();
+  }
 
-	onSave(evt) {
-		const front = ReactDOM.findDOMNode(this.refs.front).value;
-		const back  = ReactDOM.findDOMNode(this.refs.back).value;
+  onSave(evt) {
+    const front = ReactDOM.findDOMNode(this.refs.front).value;
+    const back = ReactDOM.findDOMNode(this.refs.back).value;
 
-		this.props.checkCardPresence([
-			{val: back, label: 'Back' },
-			{val: front, label: 'Front'}
-		]);
+    const card = Map(this.props.card).merge(Map({
+      'front': front,
+      'back': back
+    })).toJS();
 
-		if(this.props.cardErrors.length !== 0) {
-			
-		} else {
-			this.props.onSave(Object.assign({}, this.props.card, {
-				front,
-				back
-			}));
-			browserHistory.push(`/deck/${this.props.card.deckId}`);
-		}		
-	}
+    this.props.onSave(card);
+    browserHistory.push(`/deck/${this.props.card.deckId}`);
+  }
 
-	render() {
-		let {card, onDelete, cardErrors} = this.props;
+  render() {
+    let {card, onDelete} = this.props;
 
-		return (
-			<div className="modal">
-				{cardErrors.map(err => err !== '' && <div>{err}</div>)}
-				<h1>{onDelete ? 'Edit' : 'New'} Card</h1>
-				<label>Card Front:</label>
-				<textarea ref="front" defaultValue={card.front}></textarea>
-				<label>Card Back</label>
-				<textarea ref="back" defaultValue={card.back}></textarea>
-				<p>
-					<button onClick={this.onSave.bind(this)}>Save Card</button>
-					<Link className="btn" to={`/deck/${card.deckId}`}>Cancel</Link>
-				</p>
-			</div>
-		)
-	}
+    return (
+      <div className="modal">
+        <h1>{onDelete ? 'Edit' : 'New'} Card</h1>
+        <label>Card Front:</label>
+        <textarea ref="front" defaultValue={card.front}></textarea>
+        <label>Card Back:</label>
+        <textarea ref="back" defaultValue={card.back}></textarea>
+        <p>
+          <button onClick={this.onSave.bind(this)}>Save Card</button>
+          <Link className="btn" to={`/deck/${card.deckId}`}>Cancel</Link>
+          {onDelete ?
+            <button onClick={this.onDelete.bind(this)} className="delete">Delete Card</button>
+            : null}
+        </p>
+      </div>
+    )
+  }
 }
 
 export default CardModal;
