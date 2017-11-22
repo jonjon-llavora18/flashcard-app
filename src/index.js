@@ -9,7 +9,6 @@ import * as reducers from './reducers';
 import * as localStore from './localStore';
 
 import App from './components/App';
-import Sidebar from './components/Sidebar';
 import VisibleCards from './components/VisibleCards';
 
 reducers.routing = routerReducer;
