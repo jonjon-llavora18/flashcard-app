@@ -8,9 +8,7 @@ export const cards = (state=[], action) => {
         score: 1, 
         id: +new Date()
       }).merge(Map(action.data));
-      
       const newState = List(state).push(newCard).toJS();
-
       return newState === state ? state : newState;
 
     default:
@@ -28,6 +26,15 @@ export const decks = (state=[], action) => {
       const newState = List(state).push(newDeck).toJS();
       return newState === state ? state : newState;
 
+    case c.UPDATE_DECK:
+      const {id, newName} = action.data;
+      const updatedState = List(state).map(val => 
+        Map(val).get('id') === parseInt(id, 10) ? 
+        Map(val).set('name', newName) : 
+        Map(val)
+      ).toJS();
+      return updatedState === state ? state : updatedState;
+
     default:
       return state;
   }
@@ -37,6 +44,14 @@ export const addingDeck = (state=false, action) => {
   switch(action.type) {
     case c.SHOW_ADD_DECK: return true;
     case c.HIDE_ADD_DECK: return false;
+    default: return state;
+  }
+}
+
+export const updatingDeck = (state=false, action) => {
+  switch(action.type) {
+    case c.SHOW_UPDATE_DECK: return true;
+    case c.HIDE_UPDATE_DECK: return false;
     default: return state;
   }
 }

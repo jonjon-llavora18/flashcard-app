@@ -24,6 +24,26 @@ html, body, #root, .app {
     line-height: 22px;
 }
 
+.edit-deck-btn {
+  color: #ecf0f1;
+  float: right;
+  padding: 0 5px;
+  height: 15px;
+  line-height: 15px;
+  cursor: pointer;
+  background: #bdc3c7;
+  box-shadow: none;
+}
+
+.input-update {
+    height: 95%;
+    width: 73%;
+    padding: 0;
+    padding-left: 1px;
+    border: none;
+    font-size: 12px;
+}
+
 .btn:focus, button:focus {
     outline:none;
 }
@@ -87,15 +107,18 @@ button.delete {
 }
 
 .sidebar ul li {
-    font-size: 14px;
-    line-height: 20px;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 3px 0 3px 8px;
     margin-left: 5px;
+    margin-bottom: 1.5px;
+    background-color: #ecf0f1;
 }
 
 .sidebar ul li a {
     text-decoration: none;
     color: rgba(35, 31, 32, 0.8);
-    cursor: default;
+    cursor: pointer;
 }
 .sidebar ul li a.selected {
     color: #3187e1;
