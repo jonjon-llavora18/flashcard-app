@@ -35,6 +35,10 @@ html, body, #root, .app {
   box-shadow: none;
 }
 
+.edit-deck-btn img {
+    width: 10px;
+}
+
 .input-update {
     height: 95%;
     width: 73%;
@@ -42,6 +46,13 @@ html, body, #root, .app {
     padding-left: 1px;
     border: none;
     font-size: 12px;
+}
+
+.input-add {
+    width: 95%;
+    margin: 0 5px;
+    font-size: 12px;
+    
 }
 
 .btn:focus, button:focus {

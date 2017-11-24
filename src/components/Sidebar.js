@@ -98,7 +98,10 @@ class Sidebar extends Component {
             </li>
           )}
         </ul>
-        {props.addingDeck && <input ref="add" onKeyPress={this.createDeck.bind(this)} />}
+        {props.addingDeck && 
+          <input className="input-add" 
+                 ref="add" 
+                 onKeyPress={this.createDeck.bind(this)} />}
       </div>
     )
   }
