@@ -9,6 +9,8 @@ import * as reducers from './reducers';
 import * as localStore from './localStore';
 
 import App from './components/App';
+import SingleTeam from './components/SingleTeam';
+
 reducers.routing = routerReducer;
 
 const store = createStore(combineReducers(reducers), localStore.get());
@@ -22,6 +24,7 @@ function run() {
     <Provider store={store}>
       <Router history={history}>
         <Route path="/" component={App}>
+          <Route path="/team/:teamId" component={SingleTeam}></Route>
         </Route>
       </Router>
     </Provider>,
