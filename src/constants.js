@@ -5,3 +5,5 @@ export const SHOW_UPDATE_TEAM = 'SHOW_UPDATE_TEAM';
 export const HIDE_UPDATE_TEAM = 'HIDE_UPDATE_TEAM';
 export const UPDATE_TEAM      = 'UPDATE_TEAM';
 export const DELETE_TEAM      = 'DELETE_TEAM';
+export const SHOW_DELETE_TEAM = 'SHOW_DELETE_TEAM';
+export const HIDE_DELETE_TEAM = 'HIDE_DELETE_TEAM';

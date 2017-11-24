@@ -45,3 +45,11 @@ export const updatingTeam = (state=false, action) => {
     default: return state;
   }
 }
+
+export const deletingTeam = (state=false, action) => {
+  switch(action.type) {
+    case c.SHOW_DELETE_TEAM: return true;
+    case c.HIDE_DELETE_TEAM: return false;
+    default: return state;
+  }
+}

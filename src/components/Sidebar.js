@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom';
 import {connect} from 'react-redux';
 import {Link} from 'react-router';
 
+import Display from './parts/Display';
+
 import {
   addTeam, 
   showAddTeam, 
@@ -10,13 +12,21 @@ import {
   showUpdateTeam,
   hideUpdateTeam,
   updateTeam,
-  deleteTeam
+  deleteTeam,
+  showDeleteTeam,
+  hideDeleteTeam
 } from '../actions';
 
-const mapState = ({teams, addingTeam, updatingTeam}) => ({
+const mapState = ({
   teams, 
   addingTeam, 
-  updatingTeam
+  updatingTeam,
+  deletingTeam
+}) => ({
+  teams, 
+  addingTeam, 
+  updatingTeam,
+  deletingTeam
 });
 const mapDispatch = dispatch => ({
   addTeam:      name => dispatch(addTeam(name)),
@@ -25,7 +35,9 @@ const mapDispatch = dispatch => ({
   showUpdateTeam: () => dispatch(showUpdateTeam()),
   hideUpdateTeam: () => dispatch(hideUpdateTeam()),
   updateTeam:   data => dispatch(updateTeam(data)),
-  deleteTeam:     id => dispatch(deleteTeam(id))
+  deleteTeam:     id => dispatch(deleteTeam(id)),
+  showDeleteTeam: () => dispatch(showDeleteTeam()),
+  hideDeleteTeam: () => dispatch(hideDeleteTeam())
 });
 
 class Sidebar extends Component {
@@ -71,6 +83,10 @@ class Sidebar extends Component {
   this.props.hideUpdateTeam();
  }
 
+ showDeleteTeam(id) {
+
+ }
+
   render() {
     const props = this.props;
     const state = this.state;
@@ -81,24 +97,30 @@ class Sidebar extends Component {
         <ul>
           {props.teams.map(({id, name}, i) => 
             <li key={i}>
-              {props.updatingTeam ? 
-                (
-                  parseInt(state.activeUpdateTeam, 10) === id ? 
+              <Display condition={props.updatingTeam}>
+                <Display condition={parseInt(state.activeUpdateTeam, 10) === id}> 
                   <input 
                     className="input-update" 
                     ref="update" 
                     defaultValue={name}
-                    onKeyPress={this.updateTeam.bind(this)} /> : 
+                    onKeyPress={this.updateTeam.bind(this)} /> 
+                </Display> 
+                <Display condition={parseInt(state.activeUpdateTeam, 10) !== id}>
                   <Link to={`/team/${id}`}>{name}</Link>
-                ) : 
-                <Link to={`/team/${id}`}>{name}</Link>}
+                </Display>
+              </Display>
+              
+              <Display condition={!props.updatingTeam}> 
+                <Link to={`/team/${id}`}>{name}</Link>
+              </Display>
+
               <div className="sidebar-btn-container">
                 <button 
                   className="edit-deck-btn" 
                   onClick={() => this.showUpdateTeam(id)}>e</button>
                 <button 
                   className="delete-deck-btn"
-                  onClick={() => props.deleteTeam(id)}>x</button>
+                  onClick={props.showDeleteTeam}>x</button>
               </div>
             </li>
           )}
