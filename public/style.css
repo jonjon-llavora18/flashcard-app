@@ -41,6 +41,22 @@ html, body, #root, .app {
     background-color: #fa7062;
 }
 
+.delete-team-prompt {
+    font-weight: bold;
+}
+
+.delete-team-prompt span {
+    float: right;
+    font-weight: bold;
+    margin-right: 4px;
+    color: #ecf0f1;
+    cursor: pointer;
+    font-size: 9px;
+    background: #7f8c8d;
+    padding: 3px;
+    border-radius: 10px;
+}
+
 .input-update {
     height: 95%;
     width: 73%;
