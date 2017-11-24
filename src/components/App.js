@@ -10,6 +10,10 @@ const mapState = (props, {params: {deckId}}) => ({
 const App = ({children, deckId}) => {
   return (
     <div className="app">
+    	<div className="banner">
+    		<img src="/images/logo.png" alt="Basketball Central" />
+    		<h3>Basketball Central</h3>
+    	</div>
     	<Toolbar deckId={deckId} />
       <Sidebar />
       {children}

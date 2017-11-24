@@ -57,6 +57,25 @@ html, body, #root, .app {
 
 }
 
+.banner {
+    width: 100%;
+    background: #2980b9;
+    padding: 4px 10px;
+    text-transform: uppercase;
+}
+
+.banner img {
+    width: 11px;
+    float: left;
+}
+
+.banner h3 {
+    margin: 0;
+    margin-left: 15px;
+    font-size: 11px;
+    color: #addaf8;
+}
+
 .btn:focus, button:focus {
     outline:none;
 }

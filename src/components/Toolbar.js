@@ -17,7 +17,7 @@ const Toolbar = ({showAddDeck, deckId}) => {
 	return (
 		<div className="toolbar">
 			<div>
-				<button onClick={showAddDeck}>+ New Deck</button>
+				<button onClick={showAddDeck}>+ New Team</button>
 			</div>
 			{deckTools}
 		</div>
