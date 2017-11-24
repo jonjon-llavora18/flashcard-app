@@ -1,8 +1,7 @@
-export const ADD_CARD         = 'ADD_CARD';
-export const ADD_DECK         = 'ADD_DECK';
-export const SHOW_ADD_DECK    = 'SHOW_ADD_DECK';
-export const HIDE_ADD_DECK    = 'HIDE_ADD_DECK';
-export const SHOW_UPDATE_DECK = 'SHOW_UPDATE_DECK';
-export const HIDE_UPDATE_DECK = 'HIDE_UPDATE_DECK';
-export const UPDATE_DECK      = 'UPDATE_DECK';
-export const DELETE_DECK      = 'DELETE_DECK';
+export const ADD_TEAM         = 'ADD_TEAM';
+export const SHOW_ADD_TEAM    = 'SHOW_ADD_TEAM';
+export const HIDE_ADD_TEAM    = 'HIDE_ADD_TEAM';
+export const SHOW_UPDATE_TEAM = 'SHOW_UPDATE_TEAM';
+export const HIDE_UPDATE_TEAM = 'HIDE_UPDATE_TEAM';
+export const UPDATE_TEAM      = 'UPDATE_TEAM';
+export const DELETE_TEAM      = 'DELETE_TEAM';

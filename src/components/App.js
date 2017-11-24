@@ -2,19 +2,17 @@ import React from 'react';
 import {connect} from 'react-redux';
 import Sidebar from './Sidebar';
 import Toolbar from './Toolbar';
+import Banner from './parts/Banner';
 
-const mapState = (props, {params: {deckId}}) => ({
-  deckId
+const mapState = (props, {params: {teamId}}) => ({
+  teamId
 });
 
-const App = ({children, deckId}) => {
+const App = ({children, teamId}) => {
   return (
     <div className="app">
-    	<div className="banner">
-    		<img src="/images/logo.png" alt="Basketball Central" />
-    		<h3>Basketball Central</h3>
-    	</div>
-    	<Toolbar deckId={deckId} />
+    	<Banner />
+    	<Toolbar teamId={teamId} />
       <Sidebar />
       {children}
     </div>

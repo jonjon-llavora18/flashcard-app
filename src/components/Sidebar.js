@@ -4,28 +4,28 @@ import {connect} from 'react-redux';
 import {Link} from 'react-router';
 
 import {
-  addDeck, 
-  showAddDeck, 
-  hideAddDeck,
-  showUpdateDeck,
-  hideUpdateDeck,
-  updateDeck,
-  deleteDeck
+  addTeam, 
+  showAddTeam, 
+  hideAddTeam,
+  showUpdateTeam,
+  hideUpdateTeam,
+  updateTeam,
+  deleteTeam
 } from '../actions';
 
-const mapState = ({decks, addingDeck, updatingDeck}) => ({
-  decks, 
-  addingDeck, 
-  updatingDeck
+const mapState = ({teams, addingTeam, updatingTeam}) => ({
+  teams, 
+  addingTeam, 
+  updatingTeam
 });
 const mapDispatch = dispatch => ({
-  addDeck:      name => dispatch(addDeck(name)),
-  showAddDeck:    () => dispatch(showAddDeck()),
-  hideAddDeck:    () => dispatch(hideAddDeck()),
-  showUpdateDeck: () => dispatch(showUpdateDeck()),
-  hideUpdateDeck: () => dispatch(hideUpdateDeck()),
-  updateDeck:   data => dispatch(updateDeck(data)),
-  deleteDeck:     id => dispatch(deleteDeck(id))
+  addTeam:      name => dispatch(addTeam(name)),
+  showAddTeam:    () => dispatch(showAddTeam()),
+  hideAddTeam:    () => dispatch(hideAddTeam()),
+  showUpdateTeam: () => dispatch(showUpdateTeam()),
+  hideUpdateTeam: () => dispatch(hideUpdateTeam()),
+  updateTeam:   data => dispatch(updateTeam(data)),
+  deleteTeam:     id => dispatch(deleteTeam(id))
 });
 
 class Sidebar extends Component {
@@ -45,30 +45,30 @@ class Sidebar extends Component {
     if(updateEl) updateEl.focus();
    }
 
- createDeck(evt) {
+ createTeam(evt) {
   if(evt.which !== 13) return;
 
   const name = ReactDOM.findDOMNode(this.refs.add).value;
-  this.props.addDeck(name);
-  this.props.hideAddDeck();
+  this.props.addTeam(name);
+  this.props.hideAddTeam();
  }
 
- showUpdateDeck(id) {
-  this.setState({activeUpdateDeck: id});
-  this.props.showUpdateDeck();
+ showUpdateTeam(id) {
+  this.setState({activeUpdateTeam: id});
+  this.props.showUpdateTeam();
  }
 
- updateDeck(evt) {
+ updateTeam(evt) {
   if(evt.which !== 13) return;
   
   const newName = ReactDOM.findDOMNode(this.refs.update).value;
 
-  this.props.updateDeck({
+  this.props.updateTeam({
     newName,
-    id: this.state.activeUpdateDeck
+    id: this.state.activeUpdateTeam
   });
 
-  this.props.hideUpdateDeck();
+  this.props.hideUpdateTeam();
  }
 
   render() {
@@ -77,36 +77,36 @@ class Sidebar extends Component {
 
     return (
       <div className="sidebar">
-        <h2>All Decks</h2>
+        <h2>All Teams</h2>
         <ul>
-          {props.decks.map(({id, name}, i) => 
+          {props.teams.map(({id, name}, i) => 
             <li key={i}>
-              {props.updatingDeck ? 
+              {props.updatingTeam ? 
                 (
-                  parseInt(state.activeUpdateDeck, 10) === id ? 
+                  parseInt(state.activeUpdateTeam, 10) === id ? 
                   <input 
                     className="input-update" 
                     ref="update" 
                     defaultValue={name}
-                    onKeyPress={this.updateDeck.bind(this)} /> : 
-                  <Link to={`/deck/${id}`}>{name}</Link>
+                    onKeyPress={this.updateTeam.bind(this)} /> : 
+                  <Link to={`/team/${id}`}>{name}</Link>
                 ) : 
-                <Link to={`/deck/${id}`}>{name}</Link>}
+                <Link to={`/team/${id}`}>{name}</Link>}
               <div className="sidebar-btn-container">
                 <button 
                   className="edit-deck-btn" 
-                  onClick={() => this.showUpdateDeck(id)}>e</button>
+                  onClick={() => this.showUpdateTeam(id)}>e</button>
                 <button 
                   className="delete-deck-btn"
-                  onClick={() => props.deleteDeck(id)}>x</button>
+                  onClick={() => props.deleteTeam(id)}>x</button>
               </div>
             </li>
           )}
         </ul>
-        {props.addingDeck && 
+        {props.addingTeam && 
           <input className="input-add" 
                  ref="add" 
-                 onKeyPress={this.createDeck.bind(this)} />}
+                 onKeyPress={this.createTeam.bind(this)} />}
       </div>
     )
   }
