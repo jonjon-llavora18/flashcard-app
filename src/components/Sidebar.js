@@ -29,15 +29,15 @@ const mapState = ({
   deletingTeam
 });
 const mapDispatch = dispatch => ({
-  addTeam:      name => dispatch(addTeam(name)),
-  showAddTeam:    () => dispatch(showAddTeam()),
-  hideAddTeam:    () => dispatch(hideAddTeam()),
-  showUpdateTeam: () => dispatch(showUpdateTeam()),
-  hideUpdateTeam: () => dispatch(hideUpdateTeam()),
-  updateTeam:   data => dispatch(updateTeam(data)),
-  deleteTeam:     id => dispatch(deleteTeam(id)),
-  showDeleteTeam: () => dispatch(showDeleteTeam()),
-  hideDeleteTeam: () => dispatch(hideDeleteTeam())
+  addTeam:        name  => dispatch(addTeam(name)),
+  showAddTeam:      ()  => dispatch(showAddTeam()),
+  hideAddTeam:      ()  => dispatch(hideAddTeam()),
+  showUpdateTeam:   ()  => dispatch(showUpdateTeam()),
+  hideUpdateTeam:   ()  => dispatch(hideUpdateTeam()),
+  updateTeam:     data  => dispatch(updateTeam(data)),
+  deleteTeam:       id  => dispatch(deleteTeam(id)),
+  showDeleteTeam:   ()  => dispatch(showDeleteTeam()),
+  hideDeleteTeam:   ()  => dispatch(hideDeleteTeam())
 });
 
 class Sidebar extends Component {
@@ -96,8 +96,20 @@ class Sidebar extends Component {
       <div className="sidebar">
         <h2>All Teams</h2>
         <ul>
-          {props.teams.map(({id, name}, i) => 
-            <li key={i}>
+          {props.teams.map(({id, name}, i) => {
+            const linkDisplay = <div>
+              <Link to={`/team/${id}`}>{name}</Link>
+              <div className="sidebar-btn-container">
+                <button 
+                  className="edit-deck-btn" 
+                  onClick={() => this.showUpdateTeam(id)}>e</button>
+                <button 
+                  className="delete-deck-btn"
+                  onClick={() => this.showDeleteTeam(id)}>x</button>
+              </div>
+            </div>
+
+            return (<li key={i}>
               <Display condition={props.updatingTeam && !props.deletingTeam}>
                 <Display condition={parseInt(state.activeUpdateTeam, 10) === id}> 
                   <input 
@@ -107,15 +119,7 @@ class Sidebar extends Component {
                     onKeyPress={this.updateTeam.bind(this)} /> 
                 </Display>
                 <Display condition={parseInt(state.activeUpdateTeam, 10) !== id}>
-                  <Link to={`/team/${id}`}>{name}</Link>
-                  <div className="sidebar-btn-container">
-                    <button 
-                      className="edit-deck-btn" 
-                      onClick={() => this.showUpdateTeam(id)}>e</button>
-                    <button 
-                      className="delete-deck-btn"
-                      onClick={() => this.showDeleteTeam(id)}>x</button>
-                  </div>
+                  {linkDisplay}
                 </Display>
               </Display>
 
@@ -128,31 +132,15 @@ class Sidebar extends Component {
                   </div>
                 </Display> 
                 <Display condition={parseInt(state.activeDeleteTeam, 10) !== id}>
-                  <Link to={`/team/${id}`}>{name}</Link>
-                  <div className="sidebar-btn-container">
-                    <button 
-                      className="edit-deck-btn" 
-                      onClick={() => this.showUpdateTeam(id)}>e</button>
-                    <button 
-                      className="delete-deck-btn"
-                      onClick={() => this.showDeleteTeam(id)}>x</button>
-                  </div>
+                  {linkDisplay}
                 </Display>
               </Display>
 
               <Display condition={!props.updatingTeam && !props.deletingTeam}> 
-                <Link to={`/team/${id}`}>{name}</Link>
-                <div className="sidebar-btn-container">
-                  <button 
-                    className="edit-deck-btn" 
-                    onClick={() => this.showUpdateTeam(id)}>e</button>
-                  <button 
-                    className="delete-deck-btn"
-                    onClick={() => this.showDeleteTeam(id)}>x</button>
-                </div>
+                {linkDisplay}
               </Display>              
             </li>
-          )}
+          )})}
         </ul>
         {props.addingTeam && 
           <input className="input-add" 
