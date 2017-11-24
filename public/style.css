@@ -24,19 +24,21 @@ html, body, #root, .app {
     line-height: 22px;
 }
 
-.edit-deck-btn {
+.sidebar-btn-container { float: right; }
+
+.sidebar-btn-container button {
   color: #ecf0f1;
-  float: right;
   padding: 0 5px;
   height: 15px;
   line-height: 15px;
   cursor: pointer;
   background: #bdc3c7;
   box-shadow: none;
+  margin-right: 2px;
 }
 
-.edit-deck-btn img {
-    width: 10px;
+.sidebar-btn-container .delete-deck-btn {
+    background-color: #fa7062;
 }
 
 .input-update {
@@ -52,7 +54,7 @@ html, body, #root, .app {
     width: 95%;
     margin: 0 5px;
     font-size: 12px;
-    
+
 }
 
 .btn:focus, button:focus {

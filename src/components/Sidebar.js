@@ -9,7 +9,8 @@ import {
   hideAddDeck,
   showUpdateDeck,
   hideUpdateDeck,
-  updateDeck
+  updateDeck,
+  deleteDeck
 } from '../actions';
 
 const mapState = ({decks, addingDeck, updatingDeck}) => ({
@@ -23,7 +24,8 @@ const mapDispatch = dispatch => ({
   hideAddDeck:    () => dispatch(hideAddDeck()),
   showUpdateDeck: () => dispatch(showUpdateDeck()),
   hideUpdateDeck: () => dispatch(hideUpdateDeck()),
-  updateDeck:   data => dispatch(updateDeck(data))
+  updateDeck:   data => dispatch(updateDeck(data)),
+  deleteDeck:     id => dispatch(deleteDeck(id))
 });
 
 class Sidebar extends Component {
@@ -51,8 +53,7 @@ class Sidebar extends Component {
   this.props.hideAddDeck();
  }
 
- showUpdateDeck(evt) {
-  const id = evt.target.getAttribute('data-id');
+ showUpdateDeck(id) {
   this.setState({activeUpdateDeck: id});
   this.props.showUpdateDeck();
  }
@@ -91,10 +92,14 @@ class Sidebar extends Component {
                   <Link to={`/deck/${id}`}>{name}</Link>
                 ) : 
                 <Link to={`/deck/${id}`}>{name}</Link>}
-              <button 
-                data-id={id} 
-                className="edit-deck-btn" 
-                onClick={this.showUpdateDeck.bind(this)}>edit</button>
+              <div className="sidebar-btn-container">
+                <button 
+                  className="edit-deck-btn" 
+                  onClick={() => this.showUpdateDeck(id)}>e</button>
+                <button 
+                  className="delete-deck-btn"
+                  onClick={() => props.deleteDeck(id)}>x</button>
+              </div>
             </li>
           )}
         </ul>

@@ -35,6 +35,11 @@ export const decks = (state=[], action) => {
       ).toJS();
       return updatedState === state ? state : updatedState;
 
+    case c.DELETE_DECK:
+      const deletedState = List(state).filter(val => 
+        Map(val).get('id') !== parseInt(action.data, 10) && Map(val)).toJS();
+      return deletedState === state ? state : deletedState;
+
     default:
       return state;
   }
